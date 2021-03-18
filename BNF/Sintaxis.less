@@ -31,45 +31,75 @@ Debera tambien identificar lo siguiente
 	Capturar imagenes	   Capturar
 	Etc
 
+<programa>  <LineasCodigo>
+            <LineasCodigo>::=  <instrucciones> | <metodosMovimiento> | <ListaInstrucciones>
+                               <instrucciones>::= <variables> | <condicionales> | <iteracion> |<VariablesAsignacion>
+                      
+//creacion de variables
+          <variables>::= 'var'  <tipoDato> : <cadena>          
+          <tipoDato> ::=  'int' <datoEntero> | 'float' <datoFlotante> | 'String' <datoCadena> | 'bool' <datoBooleano>
+          <datoEntero> ::=  <signo><digito>|<Entero><digito>
+          <signo>::="+"|"-"|"£"       // £ para indicar el vacio 
+          <digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9            
+          <datoFlotante>::= <Entero>.<Entero>          
+          <datoCadena>::= <Letra>|<cadena><Letra>|<cadena><Digito>
+          <Letra> ::= <letra_mayuscula> | <letra_minuscula> | <caracter_especial>  
+          <letraMayuscula> ::= A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z  
+          <letraMinuscula> ::= a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z 
+          <datoBooleano> ::= TRUE | FALSE 
 
-<Lenguaje>::= <LineasCodigo>
-<LineasCodigo>::= <instrucciones> | <instrucciones><lineasCodigo>
-<instrucciones>::= <ciclo> | <accion>
-<mientras>::= mientras (<condicion>) <lineasCodigo> fin_mientras
-<condicion>::= (<booleano>)
-<booleano>::= 1 | 0 | verdad | falso | <numero><operadorBool><numero> | <numeroPositivo><operadorBool><numeroPositivo>
-<accion>::= <girar> | <avanzar> | <retroceder> | <detener> | <cambiarAltura> | <inclinarCamara> | <tomarFoto>
+//asignacion de variables 
+          <VariablesAsignacion>::  <variables> <operador_asignacion> <datoEntero> 
+                                  | <variables> <operador_asignacion> <datoFlotante>
+                                  | <variables> <operador_asignacion> <datoCadena> 
+                                  | <variables> <operador_asignacion> <datoBooleano>
 
-	//girar
-<girar>::= <girarCamara> | <girarRuedas>
-	//Ruedas
-<actualRuedas>::= <numero>
-<girarRuedas>::= girarRuedas <numero>
-<avanzar>::= avanzar <numeroPositivo>
-<retroceder>::= retroceder <numeroPositivo>
-<detener>::= detener
-	//Camara
-<alturaActual>::= <numero>
-<cambiarAltura>::= cambiarAltura <numero> finCambiarAltura
-<inclinacionActualCamara>::= <numero>
-<inclinarCamara>::= inclinarCamara <numero> finInclinarCamara
-<posicionActualCamara>::= <numero>
-<girarCamara>::= girarCamara <numero> finGirarCamara
-<tomarFoto>::= tomarFoto
+//iteracion, para trabajar los ciclos       
+        <iteracion>::=  <cicloIteracion> | <iteracion>
+        <cicloIteracion>::= <ciclo_while> | <ciclo_for> | <clico_doWhile> | <cicloIteracion>
+        <ciclo_while> ::= 'while' (<condicion>) do <instrucciones> 'endWhile'
+        <ciclo_for> ::= 'for' (<VariablesAsignacion>;<condicion>;<operador_incremental>) { <instrucciones> }  'endFor'
+        <ciclo_doWhile> ::= 'do' { <instrucciones> } 'while' (<condicion>) 'endDo'
 
-	//numero
-<numero>::= <entero> | <racional>
-<numeroPositivo>:: <enteroPositivo> | <racionalPositivo>
+// para la toma de deciciones         
+        <condicionales>::= <CondicionalSimple>| <Condicionaldoble> 
+        <CondicionalSimple>::= "si" (<condicion>) "entonces" <instrucciones> "fin"
+        <Condicionaldoble>::= "si" (<condicion>) "entonces" <instrucciones> " entonces sino" <instrucciones>  "fin"
 
-<enteroPositivo>::= <digito> | <digito><numero>
-<racionalPositivo>::= <digito>.<entero> | <entero>.<entero> | .<digito> | .<numero> 
 
-<entero>::= <signo><digito> | <signo><digito><numero>
-<racional>::= <signo><digito>.<entero> | <signo><entero>.<entero> | <signo>.<digito> | <signo>.<numero> 
+        <condicion> ::= (<variables> <operador> <variables> | <variables> <operador_logico> <variables>  |<condición>)
+        <operador> ::= <operador_aritmetico> | <operador_logico> | <operador_relacional> | <operador_asignacion> 
+        | <operador_igualdad> | <operador_incrementable> |<operador_concatenacion> | <operador>
+        
+          <operador_aritmetico> ::=  + | - | * | / | %
+          <operador_logico> ::= && | || | NO
+          <operador_relacional> ::= > | < | >= | <=
+          <operador_asignacion> ::=  =
+          <operador_igualdad> ::= == | !=
+          <operador_incremental> ::= ++ | --
+          <operador_concatenacion> ::= &
 
-	//terminales y palabras clave
-<operador>::= + | - |
-<signo>::= + | - | ø
-<digito>::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-<operadorBool>::= < | > | == | <= | >= | !=
-<palabrasClave>::= girarRuedas | cambiarAltura | girarCamara | inclinarCamara | avanzar | retroceder | detener | tomarFoto
+        <metodosMovimiento>::=  <giros>| <Imagenes> | <Fotos>|<desplazarse>| |<metodosMovimiento>
+
+        //giros
+        <giros>::= <girarRuedas> | <girarCamara> |<giros>
+	    //Desplazarse
+        <Desplazarse>::= <avanzar> | <retroceder> | <detener> 
+        <actualRuedas>::= <datoEntero> | <datoFlotante>
+        <girarRuedas>::= 'girarRuedas' <datoEntero> 'finGirarRuedas' | 'avanzar' <datoFlotante> 'finGirarRuedas'
+        <avanzar>::= 'avanzar' <datoEntero> 'finAvanzar' | 'avanzar' <datoFlotante> 'finAvanzar'
+        <retroceder>::= 'retroceder' <datoEntero> 'finRetroceder'| 'retroceder' <datoFlotante> 'finRetroceder'
+        <detener>::= 'detener'
+	    //Camara
+        <alturaActual>::= <datoEntero> | <datoFlotante>
+        <cambiarAltura>::= 'cambiarAltura' <datoEntero> 'finCambiarAltura' | 'cambiarAltura' <datoFlotante> 'finCambiarAltura'
+        <inclinacionActualCamara>::= <datoEntero> | <datoFlotante>
+        <inclinarCamara>::= 'inclinarCamara' <datoEntero> 'finInclinarCamara'| 'inclinarCamara' <datoFlotante> 'finInclinarCamara'
+        <posicionActualCamara>::= <datoEntero> | <datoFlotante>
+        <girarCamara>::= 'girarCamara' <datoEntero> 'finGirarCamara'| 'girarCamara' <datoFlotante> 'finGirarCamara'
+        //Fotos
+        <Fotos>::= <tomarFoto> | <enviarFoto>
+        <tomarFoto>::= 'tomarFoto'
+        <enviarFoto>::= 'enviarFoto'
+        
+        <palabrasClave>::= girarRuedas | cambiarAltura | girarCamara | inclinarCamara | avanzar | retroceder | detener | tomarFoto | enviarFoto | while | for | do | si | entonces | sino | var | int | float | String | bool
