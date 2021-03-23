@@ -38,10 +38,10 @@ Debera tambien identificar lo siguiente
 //creacion de variables
           <variables>::= 'var'  <tipoDato> : <cadena>          
           <tipoDato> ::=  'int' <datoEntero> | 'float' <datoFlotante> | 'String' <datoCadena> | 'bool' <datoBooleano>
-          <datoEntero> ::=  <signo><digito>|<Entero><digito>
+          <datoEntero> ::=  <signo><digito>|<datoEntero><digito>
           <signo>::="+"|"-"|"£"       // £ para indicar el vacio 
           <digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9            
-          <datoFlotante>::= <Entero>.<Entero>          
+          <datoFlotante>::= <signo><digito>.<digito>|<datoFlotante><digito>.<digito>         
           <datoCadena>::= <Letra>|<cadena><Letra>|<cadena><Digito>
           <Letra> ::= <letra_mayuscula> | <letra_minuscula> | <caracter_especial>  
           <letraMayuscula> ::= A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z  
@@ -57,14 +57,14 @@ Debera tambien identificar lo siguiente
 //iteracion, para trabajar los ciclos       
         <iteracion>::=  <cicloIteracion> | <iteracion>
         <cicloIteracion>::= <ciclo_while> | <ciclo_for> | <clico_doWhile> | <cicloIteracion>
-        <ciclo_while> ::= 'while' (<condicion>) do <instrucciones> 'endWhile'
-        <ciclo_for> ::= 'for' (<VariablesAsignacion>;<condicion>;<operador_incremental>) { <instrucciones> }  'endFor'
-        <ciclo_doWhile> ::= 'do' { <instrucciones> } 'while' (<condicion>) 'endDo'
+        <ciclo_while> ::= 'mientras' (<condicion>) 'hacer' <instrucciones> 'finMientras'
+        <ciclo_for> ::= 'para' (<VariablesAsignacion>;<condicion>;<operador_incremental>) { <instrucciones> }  'finPara'
+        <ciclo_doWhile> ::= 'hacer' { <instrucciones> } 'mientras' (<condicion>) 'finHacer'
 
 // para la toma de deciciones         
         <condicionales>::= <CondicionalSimple>| <Condicionaldoble> 
-        <CondicionalSimple>::= "si" (<condicion>) "entonces" <instrucciones> "fin"
-        <Condicionaldoble>::= "si" (<condicion>) "entonces" <instrucciones> " entonces sino" <instrucciones>  "fin"
+        <CondicionalSimple>::= "si" (<condicion>) "entonces" <instrucciones> "finSi"
+        <Condicionaldoble>::= "si" (<condicion>) "entonces" <instrucciones> " entonces sino" <instrucciones>  "finSino"
 
 
         <condicion> ::= (<variables> <operador> <variables> | <variables> <operador_logico> <variables>  |<condición>)
@@ -77,29 +77,30 @@ Debera tambien identificar lo siguiente
           <operador_asignacion> ::=  =
           <operador_igualdad> ::= == | !=
           <operador_incremental> ::= ++ | --
-          <operador_concatenacion> ::= &
+        
 
         <metodosMovimiento>::=  <giros>| <Imagenes> | <Fotos>|<desplazarse>| |<metodosMovimiento>
 
         //giros
         <giros>::= <girarRuedas> | <girarCamara> |<giros>
-	    //Desplazarse
-        <Desplazarse>::= <avanzar> | <retroceder> | <detener> 
-        <actualRuedas>::= <datoEntero> | <datoFlotante>
-        <girarRuedas>::= 'girarRuedas' <datoEntero> 'finGirarRuedas' | 'avanzar' <datoFlotante> 'finGirarRuedas'
-        <avanzar>::= 'avanzar' <datoEntero> 'finAvanzar' | 'avanzar' <datoFlotante> 'finAvanzar'
-        <retroceder>::= 'retroceder' <datoEntero> 'finRetroceder'| 'retroceder' <datoFlotante> 'finRetroceder'
-        <detener>::= 'detener'
-	    //Camara
-        <alturaActual>::= <datoEntero> | <datoFlotante>
-        <cambiarAltura>::= 'cambiarAltura' <datoEntero> 'finCambiarAltura' | 'cambiarAltura' <datoFlotante> 'finCambiarAltura'
-        <inclinacionActualCamara>::= <datoEntero> | <datoFlotante>
-        <inclinarCamara>::= 'inclinarCamara' <datoEntero> 'finInclinarCamara'| 'inclinarCamara' <datoFlotante> 'finInclinarCamara'
-        <posicionActualCamara>::= <datoEntero> | <datoFlotante>
-        <girarCamara>::= 'girarCamara' <datoEntero> 'finGirarCamara'| 'girarCamara' <datoFlotante> 'finGirarCamara'
-        //Fotos
+        <girarRuedas>::= 'girarRuedas' (<valorRacional> ) 'finGirarRuedas'  |<girarRuedas>
+        <girarCamara>::= 'girarCamara' (<valorRacional>) 'finGirarCamara' |<giraraCamara>
+        
+  //Desplazarse
+         <Desplazarse>::= <avanzar> | <retroceder> | <detener>
+         <avanzar>::= 'avanzar' (<valorRacional>) 'finAvanzar'  | <avanzar>
+         <retroceder>::= 'retroceder' (<valorRacional>) 'finRetroceder'|<retroceder>
+         <detener>::= 'detener' | <detener>
+
+        //camara
+        <inclinarCamara>::= 'inclinarCamara' (<valorRacional>,<valorRacional>) 'finInclinarCamara'
+
+        <valorRacional>::= <datoEntero> | <datoFlotante> 
+
         <Fotos>::= <tomarFoto> | <enviarFoto>
         <tomarFoto>::= 'tomarFoto'
         <enviarFoto>::= 'enviarFoto'
         
-        <palabrasClave>::= girarRuedas | cambiarAltura | girarCamara | inclinarCamara | avanzar | retroceder | detener | tomarFoto | enviarFoto | while | for | do | si | entonces | sino | var | int | float | String | bool
+        <palabrasClave>::= girarRuedas | cambiarAltura | girarCamara | inclinarCamara | avanzar | retroceder | detener | tomarFoto | enviarFoto | while | for | do | si | entonces | sino | var | int | float | String | bool 
+
+
