@@ -41,7 +41,7 @@ Debera tambien identificar lo siguiente
           <datoEntero> ::=  <signo><digito>|<datoEntero><digito>
           <signo>::="+"|"-"|"£"       // £ para indicar el vacio 
           <digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9            
-          <datoFlotante>::= <signo><digito>.<digito>|<datoFlotante><digito>.<digito>         
+          <datoFlotante>::= <signo><digito>.<digito>|<signo><datoEntero>.<datoEntero>         
           <datoCadena>::= <Letra>|<cadena><Letra>|<cadena><Digito>
           <Letra> ::= <letra_mayuscula> | <letra_minuscula> | <caracter_especial>  
           <letraMayuscula> ::= A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z  
@@ -63,7 +63,7 @@ Debera tambien identificar lo siguiente
 
 // para la toma de deciciones         
         <condicionales>::= <CondicionalSimple>| <Condicionaldoble> 
-        <CondicionalSimple>::= "si" (<condicion>) "entonces" <instrucciones> "finSi"
+        <CondicionalSimple>::= "si" (<condicion>) "entonces" <instrucciones> "finSi" 
         <Condicionaldoble>::= "si" (<condicion>) "entonces" <instrucciones> " entonces sino" <instrucciones>  "finSino"
 
 
