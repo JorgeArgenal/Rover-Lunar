@@ -9,7 +9,11 @@ using namespace std;
 bool creacion(string leido);
 bool asignacion(string leido);
 bool desplazamientos(string leido);
-bool condicion(string);
+bool condicion(string leido);
+bool condicional (string leido);
+bool iteracion (string leido);
+bool camara (string leido);
+
 string lectura();
 
 string lectura(){
@@ -510,6 +514,202 @@ bool condicion(string leido){
 	cout<<"valor2: "+valor2<<endl;
 	return valido;
 }
+
+
+//esta funcion nos ayudara a analizar que la sintaxis para la iteracion este escrita correctamente 
+//la iteracion esta compuesta de ciclos: mientras, hacerMientras, para.
+bool iteracion(string leido){
+	
+	//variables que nos ayudaran a reconocer los patrones correctos 
+	char separador= ' ';
+	string convertido;
+	convertido=leido;
+	string separada;
+	string anterior;
+	string condicion;
+	//asumiremos inicialmente el valor de falsedad para la proposicion 	
+	//acepta una cadena en la funcion se verificara si esta escrita correctamente sengun nuestro BNF
+	bool valido=false; 
+	//nos ayudara a reconocer la existencua del operador que estemos utilizando
+	bool operador = false; 
+	
+	for(size_t p=0, q=0; p!=convertido.npos; p=q){//inicio
+		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		
+	//verificacion de las palabras reservadas 
+			if((separada=="hacerMientras") || (separada=="finHacer" )||(separada=="finMientras") ||(separada=="mientras") ||(separada=="hacer")){//inicio del if para las palabras reservadas 
+					valido=true;
+					break;
+				}else{
+					anterior=separada;
+					
+					for(int i=0;i<3;i++){
+						p=q;
+				 		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+					}
+				 	if(anterior==separada){
+				 		valido=true;
+				 		break;
+					 }
+					
+	}//fin if para palabras reservadas
+	    }//final del for
+
+	return valido;		
+	}//fin de la funcion
+
+
+bool condicional (string leido){
+	
+	//variables que nos ayudaran a reconocer los patrones correctos 
+	char separador= ' ';
+	string convertido;
+	convertido=leido;
+	string separada;
+	string anterior;
+	string condicion;
+	//asumiremos inicialmente el valor de falsedad para la proposicion 	
+	//acepta una cadena en la funcion se verificara si esta escrita correctamente sengun nuestro BNF
+	bool valido=false; 
+	//nos ayudara a reconocer la existencia de un operador 
+	bool operador = false; 
+	
+	
+	for(size_t p=0, q=0; p!=convertido.npos; p=q){//inicio
+		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		
+	//verificacion de las palabras reservadas 
+			if((separada=="si") || (separada=="entonces" )||(separada=="entoncesSino") ||(separada=="finSi")||(separada == "finSino")){//inicio del if para las palabras reservadas 
+					valido=true;
+					break;
+				}else{
+					anterior=separada;
+					
+					for(int i=0;i<3;i++){
+						p=q;
+				 		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+					}
+				 	if(anterior==separada){
+				 		valido=true;
+				 		break;
+					 }
+					
+				}//fin if para palabras reservadas
+	
+	}//final del ciclo for 	
+	return valido;
+}
+
+
+bool camara(string leido){
+	char separador= ' ';
+	string convertido;
+	convertido=leido;
+	string separada;
+	string anterior;
+	bool signo=false;	
+	bool punto=false;
+	bool valido=true;
+	
+	//Ciclo para separar palabras separadas por un separador y encontrar si la primera palabra es una palabra clave
+	
+	int cont;
+	for(size_t p=0, q=0; p!=convertido.npos; p=q){
+		 separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		 if(separada=="inclinarCamara"){ //palabra clave para indicar una cantidad n de grados que la camara se debe mover 
+		 	p=q;
+		 	
+		 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		 	
+			if(separada[0]=='+' || separada[0]=='-'|| (separada[0]>='0' && separada[0]<='9')){
+				//ciclo para recorrer el valor ingresado
+				for(int k=0;k<separada.length();k++){
+					//si es un signo al comienzo, solo se concatena a temporal que es una variable string para ayudarnos a saber como lee					
+					if(separada[k]=='+' || separada[k]=='-'){
+						signo=true;
+					}else{
+						if(separada[k]!='.'){
+						}else if(separada[k]=='.' && !punto){
+							punto=true;
+						}else if(separada[k]=='.' && punto){
+							valido=false;
+							break;
+						}
+					}
+				}
+				anterior=separada;
+				p=q;
+			 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+			 	p=q;
+			 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+			 	if(anterior!=separada){
+			 		valido=false;
+				}
+				
+			}
+		 	break;
+		 	 if(separada=="alturaCamara"){ //palabra clave para indicar una cantidad n de centimentros con los que se desplazara la camara 
+		 	p=q;
+		 	
+		 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		 	
+			if(separada[0]=='+' || separada[0]=='-'|| (separada[0]>='0' && separada[0]<='9')){
+				//ciclo para recorrer el valor ingresado
+				for(int k=0;k<separada.length();k++){
+					//si es un signo al comienzo, solo se concatena a temporal que es una variable string para ayudarnos a saber como lee					
+					if(separada[k]=='+' || separada[k]=='-'){
+						signo=true;
+					}else{
+						if(separada[k]!='.'){
+						}else if(separada[k]=='.' && !punto){
+							punto=true;
+						}else if(separada[k]=='.' && punto){
+							valido=false;
+							break;
+						}
+					}
+				}
+				anterior=separada;
+				p=q;
+			 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+			 	p=q;
+			 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+			 	if(anterior!=separada){
+			 		valido=false;
+				}
+				
+			}
+		 	break;
+		 }else if((separada=="tomarFoto ()") || separada=="tomarFoto()" ){
+		 	anterior=separada;
+			p=q;
+		 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		 	if(anterior!=separada){
+		 		valido=false;
+			}
+			break;
+		 }else{
+		 	valido=false;
+		 }
+		 	
+		 
+		 	break;
+		 }else if((separada=="enviarFoto ()") || (separada=="enviarFoto()")){
+		 	anterior=separada;
+			p=q;
+		 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		 	if(anterior!=separada){
+		 		valido=false;
+			}
+			break;
+		 }else{
+		 	valido=false;
+		 }
+	}	
+	return valido;
+}
+
+	
 int main(){
 	string leido;
 	leido=lectura();
@@ -540,4 +740,3 @@ int main(){
 	return 0;
 }
 	
-
