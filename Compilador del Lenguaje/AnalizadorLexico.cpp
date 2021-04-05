@@ -22,6 +22,7 @@ string lectura(){
 	string nombreArchivo,texto;
 	string archivo="";
 	
+	cout<<endl;
 	cout<<"Digite el nombre o la ubicacion del archivo o fichero: ";
 	getline(cin,nombreArchivo);
 	
@@ -38,6 +39,10 @@ string lectura(){
 	}
 	
 	archivo_texto.close(); //Cerramos el archivo
+	cout<<endl;
+	cout<<"Se leyo el archivo y se procedera a analizarlo, presione cualquier tecla"<<endl<<endl;
+	system("pause");
+	cout<<endl;
 	return archivo;
 }
 bool creacion(string leido){
@@ -1091,58 +1096,6 @@ bool condicional(string leido){
 	}
 	return false;
 }
-//esta funcion nos ayudara a analizar que la sintaxis para la encontrar_interacion este escrita correctamente 
-//la encontrar_interacion esta compuesta de ciclos: mientras, hacerMientras, para.
-bool encontrar_interacion(string leido){
-
-	
-	//variables que nos ayudaran a reconocer los patrones correctos 
-	char separador= ' ';
-	string convertido;
-	convertido=leido;
-	string separada;
-	string anterior;
-	string condicion;
-	//asumiremos inicialmente el valor de falsedad para la proposicion 	
-	//acepta una cadena en la funcion se verificara si esta escrita correctamente sengun nuestro BNF
-	//nos ayudara a reconocer la existencua del operador que estemos utilizando
-	bool operador = false; 
-	
-	for(size_t p=0, q=0; p!=convertido.npos; p=q){//inicio
-		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
-		//verificacion de las palabras reservadas 
-		if( (separada=="finHacer" )||(separada=="finMientras") ||(separada=="mientras") ||(separada=="hacer")){		
-			return true;
-		}else{
-			return false;
-		}//inicio del if para las palabras reservadas 	
-	//fin if para palabras reservadas
-	}//final del for
-}//fin de la funcion
-
-//encontrar condicional
-bool encontrar_condicional (string leido){
-	
-	//variables que nos ayudaran a reconocer los patrones correctos 
-	char separador= ' ';
-	string convertido;
-	convertido=leido;
-	string separada;
-	//asumiremos inicialmente el valor de falsedad para la proposicion 	
-	//acepta una cadena en la funcion se verificara si esta escrita correctamente sengun nuestro BNF
-	
-	for(size_t p=0, q=0; p!=convertido.npos; p=q){//inicio
-		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
-		
-		//verificacion de las palabras reservadas 
-		if((separada=="si") || (separada=="entonces" )||(separada=="entoncesSino") ||(separada=="finSi")||(separada == "finSino")){//inicio del if para las palabras reservadas 
-			return true;
-		}
-	}//final del ciclo for 	
-	return false;
-}
-
-
 bool camara(string leido){
 	char separador= ' ';
 	string convertido;
@@ -1238,6 +1191,59 @@ bool camara(string leido){
 	return true;
 }
 
+//esta funcion nos ayudara a analizar que la sintaxis para la encontrar_interacion este escrita correctamente 
+//la encontrar_interacion esta compuesta de ciclos: mientras, hacerMientras, para.
+bool encontrar_interacion(string leido){
+
+	
+	//variables que nos ayudaran a reconocer los patrones correctos 
+	char separador= ' ';
+	string convertido;
+	convertido=leido;
+	string separada;
+	string anterior;
+	string condicion;
+	//asumiremos inicialmente el valor de falsedad para la proposicion 	
+	//acepta una cadena en la funcion se verificara si esta escrita correctamente sengun nuestro BNF
+	//nos ayudara a reconocer la existencua del operador que estemos utilizando
+	bool operador = false; 
+	
+	for(size_t p=0, q=0; p!=convertido.npos; p=q){//inicio
+		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		//verificacion de las palabras reservadas 
+		if( (separada=="finHacer" )||(separada=="finMientras") ||(separada=="mientras") ||(separada=="hacer")){		
+			return true;
+		}else{
+			return false;
+		}//inicio del if para las palabras reservadas 	
+	//fin if para palabras reservadas
+	}//final del for
+}//fin de la funcion
+
+//encontrar condicional
+bool encontrar_condicional (string leido){
+	
+	//variables que nos ayudaran a reconocer los patrones correctos 
+	char separador= ' ';
+	string convertido;
+	convertido=leido;
+	string separada;
+	//asumiremos inicialmente el valor de falsedad para la proposicion 	
+	//acepta una cadena en la funcion se verificara si esta escrita correctamente sengun nuestro BNF
+	
+	for(size_t p=0, q=0; p!=convertido.npos; p=q){//inicio
+		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		
+		//verificacion de las palabras reservadas 
+		if((separada=="si") || (separada=="entonces" )||(separada=="entoncesSino") ||(separada=="finSi")||(separada == "finSino")){//inicio del if para las palabras reservadas 
+			return true;
+		}
+	}//final del ciclo for 	
+	return false;
+}
+
+
+
 	
 int main(){
 	int contMientras=0;
@@ -1318,6 +1324,7 @@ int main(){
 			}
 		}
 	}
+	
 	//escritura del archivo
 	ofstream archivo;
 	archivo.open("resultados.txt",ios::out);
@@ -1329,9 +1336,11 @@ int main(){
 	
 	archivo<<"Contador de Mientras: ";
 	archivo<<contMientras<<endl;
-	archivo<<"Contador de Si: ";
+	archivo<<"Contador de Mientras: ";	
+	archivo<<contMientras<<endl;
+	archivo<<"Contador de Si: ";  
 	archivo<<contSi<<endl;
-	archivo<<"Contador de Hacer: ";
+	archivo<<"Contador de Hacer: ";               
 	archivo<<contHacer<<endl;
 	archivo<<"Contador de Creacion de variables: ";
 	archivo<<contCreacion<<endl;
@@ -1345,6 +1354,9 @@ int main(){
 	archivo<<errores<<endl;
 	
 	archivo.close();
+	
+	cout<<"En caso de no haber ocurrido un error fatal, puede leer los resultados en un archivo de texto llamado 'Resultados.txt' en la carpeta de origen"<<endl<<endl;
+	system("pause");
 	
 	
 	return 0;
