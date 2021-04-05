@@ -1,0 +1,10 @@
+Resultados
+Contador de Mientras: 1
+Contador de Mientras: 1
+Contador de Si: 2
+Contador de Hacer: 1
+Contador de Creacion de variables: 2
+Contador de Desplazamientos: 1
+Contador de Camara: 3
+Contador de Asignacion: 1
+Contador de Errores encontrados: 2
