@@ -480,11 +480,9 @@ bool iteracion(string leido){
 		if(encontrar_interacion(linea)){
 			separador=' ';
 			separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
-			
 			if(separada=="hacer"){
 				p=q;
 				separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
-			
 				if(separada=="avanzar"){
 					//funcion que reciba leido, y a leido se le aplica todo ese tratamiento de abajo
 					p=q;
@@ -493,7 +491,13 @@ bool iteracion(string leido){
 						p=q;
 						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 						if(condicion(separada)){
-							return true;
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finHacer"){
+								return true;
+							}else{
+								return false;
+							}
 						}else{
 							return false;
 						}
@@ -509,7 +513,13 @@ bool iteracion(string leido){
 						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 						
 						if(condicion(separada)){
-							return true;
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finHacer"){
+								return true;
+							}else{
+								return false;
+							}
 						}else{
 							return false;
 						}
@@ -517,7 +527,7 @@ bool iteracion(string leido){
 						return false;
 
 					}
-				}else if(separada=="enviarFoto"){
+				}else if (separada=="detener"){
 					p=q;
 					separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 					
@@ -526,15 +536,21 @@ bool iteracion(string leido){
 						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 						
 						if(condicion(separada)){
-							
-							return true;
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finHacer"){
+								return true;
+							}else{
+								return false;
+							}
 						}else{
 							return false;
 						}
 					}else{
 						return false;
+
 					}
-				}else if(separada=="tomarFoto"){
+				}else if (separada=="enviarFoto"){
 					p=q;
 					separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 					
@@ -543,14 +559,21 @@ bool iteracion(string leido){
 						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 						
 						if(condicion(separada)){
-							return true;
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finHacer"){
+								return true;
+							}else{
+								return false;
+							}
 						}else{
 							return false;
 						}
 					}else{
 						return false;
+
 					}
-				}else if(separada=="girarCamara"){
+				}else if (separada=="tomarFoto"){
 					p=q;
 					separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 					
@@ -559,12 +582,65 @@ bool iteracion(string leido){
 						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 						
 						if(condicion(separada)){
-							return true;
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finHacer"){
+								return true;
+							}else{
+								return false;
+							}
 						}else{
 							return false;
 						}
 					}else{
 						return false;
+
+					}
+				}else if (separada=="girarCamara"){
+					p=q;
+					separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+					
+					if(encontrar_interacion(separada)){
+						p=q;
+						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+						
+						if(condicion(separada)){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finHacer"){
+								return true;
+							}else{
+								return false;
+							}
+						}else{
+							return false;
+						}
+					}else{
+						return false;
+
+					}
+				}else if (separada=="alturaCamara"){
+					p=q;
+					separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+					
+					if(encontrar_interacion(separada)){
+						p=q;
+						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+						
+						if(condicion(separada)){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finHacer"){
+								return true;
+							}else{
+								return false;
+							}
+						}else{
+							return false;
+						}
+					}else{
+						return false;
+
 					}
 				}else{
 					return false;
@@ -580,11 +656,45 @@ bool iteracion(string leido){
 						p=q;
 						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 						if(separada=="avanzar"){
-							return true;
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finMientras"){
+								return true;
+							}else{
+								return false;
+							}
 						}else if(separada=="retroceder"){
-							return true;
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finMientras"){
+								return true;
+							}else{
+								return false;
+							}
+						}else if(separada=="detener"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finMientras"){
+								return true;
+							}else{
+								return false;
+							}
 						}else if(separada=="girarCamara"){
-							return true;
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finMientras"){
+								return true;
+							}else{
+								return false;
+							}
+						}else if(separada=="alturaCamara"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finMientras"){
+								return true;
+							}else{
+								return false;
+							}
 						}else if(separada=="enviarFoto"){
 							return true;
 						}else if(separada=="tomarFoto"){
@@ -631,20 +741,64 @@ bool condicional(string leido){
 							p=q;
 							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 							if(separada=="avanzar"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if (separada=="retroceder"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if (separada=="detenerse"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="enviarFoto"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="tomarFoto"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="girarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else{
+								return false;
+							}
+						}else if(separada=="finSi"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="si"){
 								return true;
 							}else{
 								return false;
 							}
-						}else if(separada=="si"){
-							return true;
 						}else{
 							return false;
 						}
@@ -655,20 +809,64 @@ bool condicional(string leido){
 							p=q;
 							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 							if(separada=="avanzar"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if (separada=="retroceder"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if (separada=="detenerse"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="enviarFoto"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="tomarFoto"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="girarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else{
+								return false;
+							}
+						}else if(separada=="finSi"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="si"){
 								return true;
 							}else{
 								return false;
 							}
-						}else if(separada=="si"){
-							return true;
 						}else{
 							return false;
 						}
@@ -679,20 +877,64 @@ bool condicional(string leido){
 							p=q;
 							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 							if(separada=="avanzar"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if (separada=="retroceder"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if (separada=="detenerse"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="enviarFoto"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="tomarFoto"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="girarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else{
+								return false;
+							}
+						}else if(separada=="finSi"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="si"){
 								return true;
 							}else{
 								return false;
 							}
-						}else if(separada=="si"){
-							return true;
 						}else{
 							return false;
 						}
@@ -703,20 +945,64 @@ bool condicional(string leido){
 							p=q;
 							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 							if(separada=="avanzar"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if (separada=="retroceder"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if (separada=="detenerse"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="enviarFoto"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="tomarFoto"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="girarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else{
+								return false;
+							}
+						}else if(separada=="finSi"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="si"){
 								return true;
 							}else{
 								return false;
 							}
-						}else if(separada=="si"){
-							return true;
 						}else{
 							return false;
 						}
@@ -727,20 +1013,64 @@ bool condicional(string leido){
 							p=q;
 							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 							if(separada=="avanzar"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if (separada=="retroceder"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if (separada=="detenerse"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="enviarFoto"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="tomarFoto"){
-								return true;
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else if(separada=="girarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else{
+								return false;
+							}
+						}else if(separada=="finSi"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="si"){
 								return true;
 							}else{
 								return false;
 							}
-						}else if(separada=="si"){
-							return true;
 						}else{
 							return false;
 						}
@@ -764,6 +1094,7 @@ bool condicional(string leido){
 //esta funcion nos ayudara a analizar que la sintaxis para la encontrar_interacion este escrita correctamente 
 //la encontrar_interacion esta compuesta de ciclos: mientras, hacerMientras, para.
 bool encontrar_interacion(string leido){
+
 	
 	//variables que nos ayudaran a reconocer los patrones correctos 
 	char separador= ' ';
@@ -780,7 +1111,7 @@ bool encontrar_interacion(string leido){
 	for(size_t p=0, q=0; p!=convertido.npos; p=q){//inicio
 		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
 		//verificacion de las palabras reservadas 
-		if((separada=="hacerMientras") || (separada=="finHacer" )||(separada=="finMientras") ||(separada=="mientras") ||(separada=="hacer")){		
+		if( (separada=="finHacer" )||(separada=="finMientras") ||(separada=="mientras") ||(separada=="hacer")){		
 			return true;
 		}else{
 			return false;
@@ -811,7 +1142,7 @@ bool encontrar_condicional (string leido){
 	return false;
 }
 
-//falta que responda Iveth para definir si dejaremos con parentesis o no lo de tomarFoto y enviarFoto
+
 bool camara(string leido){
 	char separador= ' ';
 	string convertido;
@@ -827,7 +1158,7 @@ bool camara(string leido){
 	int cont;
 	for(size_t p=0, q=0; p!=convertido.npos; p=q){
 		 separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
-		 if(separada=="inclinarCamara"){ //palabra clave para indicar una cantidad n de grados que la camara se debe mover 
+		 if(separada=="girarCamara"){ //palabra clave para indicar una cantidad n de grados que la camara se debe mover 
 		 	p=q;
 		 	
 		 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
@@ -847,12 +1178,10 @@ bool camara(string leido){
 						}
 					}
 				}
-				anterior=separada;
+				
 				p=q;
 			 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
-			 	p=q;
-			 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
-			 	if(anterior!=separada){
+			 	if(separada!="finGirarCamara"){
 			 		return false;
 				}
 				
@@ -879,12 +1208,9 @@ bool camara(string leido){
 						}
 					}
 				}
-				anterior=separada;
-				p=q;
-			 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
 			 	p=q;
 			 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
-			 	if(anterior!=separada){
+			 	if(separada!="finAlturaCamara"){
 			 		return false;
 				}
 				
@@ -914,31 +1240,113 @@ bool camara(string leido){
 
 	
 int main(){
+	int contMientras=0;
+	int contSi=0;
+	int contHacer=0;
+	int contCreacion=0;
+	int contDesplazamientos=0;
+	int contCamara=0;
+	int contAsignacion=0;
+	int errores=0;
 	string leido;
 	string linea;
+	string separada;
 	leido=lectura();
-	char separador='\n';
+	char separadorLineas='\n';
+	char separadorEspacios=' ';
 	
-	//para probar condicional
-	for(size_t p=0, q=0; p!=leido.npos; p=q){
-		linea=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
-		if(condicional(linea)){
-			cout<<"Es valido"<<endl;
-			break;
-		}else{
-			cout<<"No es valido"<<endl;
-			break;
+	for(size_t l=0, r=0; l!=leido.npos; l=r){
+		linea=leido.substr(l+(l!=0),(r=leido.find(separadorLineas, l+1))-l-(l!=0));
+		for(size_t p=0, q=0; p!=leido.npos; p=q){
+			separada=linea.substr(p+(p!=0),(q=linea.find(separadorEspacios, p+1))-p-(p!=0));
+			if(separada=="mientras"){
+				if(iteracion(linea)){
+					contMientras=contMientras+1;
+					break;
+				}else{
+					errores=errores+1;
+					break;
+				}
+			}else if(separada=="si"){
+				if(condicional(linea)){
+					contSi=contSi+1;
+					break;
+				}else{
+					errores=errores+1;
+					break;
+				}
+			}else if(separada=="hacer"){
+				if(iteracion(linea)){
+					contHacer=contHacer+1;
+					break;
+				}else{
+					errores=errores+1;
+					break;
+				}
+			}else if(separada=="int" || separada=="bool" || separada=="string" || separada=="float"){
+				if(creacion(linea)){
+					contCreacion=contCreacion+1;
+					break;
+				}else{
+					errores=errores+1;
+					break;
+				}
+			}else if(separada=="avanzar" || separada=="retroceder" || separada=="detenerse"){
+				if(desplazamientos(linea)){
+					contDesplazamientos=contDesplazamientos+1;
+					break;
+				}else{
+					errores=errores+1;
+					break;
+				}
+			}else if(separada=="girarCamara" || separada=="alturaCamara" || separada=="tomarFoto()" || separada=="enviarFoto()"){
+				if(camara(linea)){
+					contCamara=contCamara+1;
+					break;
+				}else{
+					errores=errores+1;
+					break;
+				}
+			}else if((separada[0]>='a' && separada[0]>='z') || (separada[0]>='A' && separada[0]>='Z')){
+				if(asignacion(linea)){
+					contAsignacion=contAsignacion+1;
+					break;
+				}else{
+					errores=errores+1;
+					break;
+				}
+			}
 		}
 	}
-		/*
-		if(creacion(linea)){
-			cout<<"Funciono la lectura con creacion"<<endl;
-		}else if(asignacion(linea)){
-			cout<<"Funciono la lectura con asignacion"<<endl;
-		}else if(desplazamientos(linea)){
-			cout<<"Funciono la lectura con desplazamiento"<<endl;
-		}
-		*/
+	//escritura del archivo
+	ofstream archivo;
+	archivo.open("resultados.txt",ios::out);
+	if(archivo.fail()){
+		cout<<"El archivo no se abrio";
+		exit(1);
+	}
+	archivo<<"Resultados"<<endl;
+	
+	archivo<<"Contador de Mientras: ";
+	archivo<<contMientras<<endl;
+	archivo<<"Contador de Si: ";
+	archivo<<contSi<<endl;
+	archivo<<"Contador de Hacer: ";
+	archivo<<contHacer<<endl;
+	archivo<<"Contador de Creacion de variables: ";
+	archivo<<contCreacion<<endl;
+	archivo<<"Contador de Desplazamientos: ";
+	archivo<<contDesplazamientos<<endl;
+	archivo<<"Contador de Camara: ";
+	archivo<<contCamara<<endl;
+	archivo<<"Contador de Asignacion: ";
+	archivo<<contAsignacion<<endl;
+	archivo<<"Contador de Errores encontrados: ";
+	archivo<<errores<<endl;
+	
+	archivo.close();
+	
+	
 	return 0;
 }
 		
