@@ -1,0 +1,13 @@
+valor=-78.1
+si (valor<algo) entonces avanzar finSi
+si (valor<algo) entonces avanzar entoncesSino detenerse finSino
+int valor
+int algo
+mientras (valor<algo) hacer retroceder finMientras
+hacer avanzar mientras (valor<algo) finHacer
+avanzar -78.41 finAvanzar
+girarCamara 78.6 finGirarCamara
+alturaCamara 94.1 finAlturaCamara
+tomarFoto()
+asdqwe oqwepasd
+probar=97854.146.14
