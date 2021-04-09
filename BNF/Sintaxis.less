@@ -58,7 +58,7 @@ Debera tambien identificar lo siguiente
         <iteracion>::=  <cicloIteracion> | <iteracion>
         <cicloIteracion>::= <ciclo_while>  | <clico_doWhile> | <cicloIteracion>
         <ciclo_while> ::= 'mientras' (<condicion>) 'hacer' <instrucciones> 'finMientras'
-        <ciclo_doWhile> ::= 'hacerMientras'  <instrucciones>  '(<condicion>) 'finHacer'
+        <ciclo_doWhile> ::= 'hacer'  <instrucciones> 'mientras '(<condicion>) 'finHacer'
 
 // para la toma de deciciones         
         <condicionales>::= <CondicionalSimple>| <Condicionaldoble> 
@@ -100,6 +100,6 @@ Debera tambien identificar lo siguiente
         <tomarFoto>::= 'tomarFoto'
         <enviarFoto>::= 'enviarFoto'
         
-        <palabrasClave>::= girarRuedas | cambiarAltura | girarCamara | inclinarCamara | avanzar | retroceder | detener | tomarFoto | enviarFoto | mientras | hacerMientras | si | entonces | entoncesSino | var | int | float | String | bool |
+        <palabrasClave>::= girarRuedas | cambiarAltura | girarCamara | inclinarCamara | avanzar | retroceder | detener | tomarFoto | enviarFoto | mientras | hacer |finHacer | si | entonces | entoncesSino | var | int | float | String | bool |
 
 
