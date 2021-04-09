@@ -43,7 +43,7 @@ Debera tambien identificar lo siguiente
           <digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9            
           <datoFlotante>::= <signo><digito>.<digito>|<datoFlotante><digito>.<digito>         
           <datoCadena>::= <Letra>|<cadena><Letra>|<cadena><Digito>
-          <Letra> ::= <letra_mayuscula> | <letra_minuscula> | <caracter_especial>  
+          <Letra> ::= <letra_mayuscula> | <letra_minuscula> | 
           <letraMayuscula> ::= A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z  
           <letraMinuscula> ::= a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z 
           <datoBooleano> ::= TRUE | FALSE 
@@ -83,7 +83,7 @@ Debera tambien identificar lo siguiente
         //giros
         <giros>::= <girarRuedas> | <girarCamara> |<giros>
         <girarRuedas>::= 'girarRuedas' (<valorRacional> ) 'finGirarRuedas'  |<girarRuedas>
-        <girarCamara>::= 'girarCamara' (<valorRacional>) 'finGirarCamara' |<giraraCamara>
+        <girarCamara>::= 'girarCamara' (<valorRacional>) 'finGirarCamara' |<girarCamara>
         
   //Desplazarse
          <Desplazarse>::= <avanzar> | <retroceder> | <detener>
@@ -92,7 +92,7 @@ Debera tambien identificar lo siguiente
          <detener>::= 'detener' | <detener>
 
         //camara
-        <inclinarCamara>::= 'inclinarCamara' (<valorRacional>,<valorRacional>) 'finInclinarCamara'
+        <inclinarCamara>::= 'inclinarCamara' (<valorRacional>) 'finInclinarCamara'
 
         <valorRacional>::= <datoEntero> | <datoFlotante> 
 
