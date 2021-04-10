@@ -1,0 +1,11 @@
+si (valor<algo) entonces inclinarCamara entoncesSino girarRuedas izquierda finSi
+alturaCamara 45 finAlturaCamara
+girarCamara 25 finGirarCamara
+inclinarCamara 46 finInclinarCamara
+girarRuedas derecha 68 finGirarRuedas
+girarRuedas derecha 72 finGirarRuedas
+girarRuedas izquierda 68 finGirarRuedas
+hacer girarRuedas izquierda mientras (algo<valor) finHacer
+mientras (algo<valor) hacer girarRuedas derecha finMientras
+int algo
+algo=otro

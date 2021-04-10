@@ -1,0 +1,17 @@
+*****************************************
+*	   Tabla de simbolos		*
+*****************************************
+*	  Tipo		*     Linea	*
+*****************************************
+*	si		*	1	*
+*	alturaCamara	*	2	*
+*	girarCamara	*	3	*
+*	inclinarCamara	*	4	*
+*	girarRuedas	*	5	*
+*	error		*	6	*
+*	girarRuedas	*	7	*
+*	hacer		*	8	*
+*	mientras	*	9	*
+*	int		*	10	*
+*   AsignacionVariable	*	11	*
+*****************************************
