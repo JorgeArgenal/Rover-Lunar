@@ -1,3 +1,4 @@
+Primeras Ideas de lo que debe hacer el programa
 
 Capturar imagenes
 Tiene 6 ruedas independientes
@@ -36,14 +37,14 @@ Debera tambien identificar lo siguiente
                                <instrucciones>::= <variables> | <condicionales> | <iteracion> |<VariablesAsignacion>
                       
 //creacion de variables
-          <variables>::= 'var'  <tipoDato> : <cadena>          
+          <variables>::= <tipoDato> <cadena>          
           <tipoDato> ::=  'int' <datoEntero> | 'float' <datoFlotante> | 'String' <datoCadena> | 'bool' <datoBooleano>
           <datoEntero> ::=  <signo><digito>|<datoEntero><digito>
           <signo>::="+"|"-"|"£"       // £ para indicar el vacio 
           <digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9            
           <datoFlotante>::= <signo><digito>.<digito>|<datoFlotante><digito>.<digito>         
           <datoCadena>::= <Letra>|<cadena><Letra>|<cadena><Digito>
-          <Letra> ::= <letra_mayuscula> | <letra_minuscula> | 
+          <Letra> ::= <letra_mayuscula> | <letra_minuscula>  
           <letraMayuscula> ::= A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z  
           <letraMinuscula> ::= a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z 
           <datoBooleano> ::= TRUE | FALSE 
@@ -90,6 +91,8 @@ Debera tambien identificar lo siguiente
          <avanzar>::= 'avanzar' (<valorRacional>) 'finAvanzar'  | <avanzar>
          <retroceder>::= 'retroceder' (<valorRacional>) 'finRetroceder'|<retroceder>
          <detener>::= 'detener' | <detener>
+	 <girarRuedas>::= 'girarRuedas' <direccion> (<valorRacional>) 'finGirarRuedas'
+	 <direccion>::= "izquierda" || "derecha"
 
         //camara
         <inclinarCamara>::= 'inclinarCamara' (<valorRacional>) 'finInclinarCamara'
@@ -100,6 +103,6 @@ Debera tambien identificar lo siguiente
         <tomarFoto>::= 'tomarFoto'
         <enviarFoto>::= 'enviarFoto'
         
-        <palabrasClave>::= girarRuedas | cambiarAltura | girarCamara | inclinarCamara | avanzar | retroceder | detener | tomarFoto | enviarFoto | mientras | hacer |finHacer | si | entonces | entoncesSino | var | int | float | String | bool |
+        <palabrasClave>::= girarRuedas | finGirarRuedas | alturaCamara | finAlturaCamara | girarCamara | finGirarCamara | inclinarCamara | finInclinarCamara | avanzar | finAvanzar | retroceder | finRetroceder | detener | tomarFoto() | enviarFoto() | mientras | finMientras | hacer | finHacer | si | entonces | entoncesSino | var | int | float | String | bool 
 
 
