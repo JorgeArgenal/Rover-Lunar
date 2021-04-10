@@ -1,13 +1,11 @@
-valor=-78.1
-si (valor<algo) entonces avanzar finSi
-si (valor<algo) entonces avanzar entoncesSino detenerse finSino
-int valor
+si (valor<algo) entonces inclinarCamara entoncesSino girarRuedas izquierda finSi
+alturaCamara 45 finAlturaCamara
+girarCamara 25 finGirarCamara
+inclinarCamara 46 finInclinarCamara
+girarRuedas derecha 68 finGirarRuedas
+girarRuedas derecha 72 finGirarRuedas
+girarRuedas izquierda 68 finGirarRuedas
+hacer girarRuedas izquierda mientras (algo<valor) finHacer
+mientras (algo<valor) hacer girarRuedas derecha finMientras
 int algo
-mientras (valor<algo) hacer retroceder finMientras
-hacer avanzar mientras (valor<algo) finHacer
-avanzar -78.41 finAvanzar
-girarCamara 78.6 finGirarCamara
-alturaCamara 94.1 finAlturaCamara
-tomarFoto()
-asdqwe oqwepasd
-probar=97854.146.14
+algo=otro
