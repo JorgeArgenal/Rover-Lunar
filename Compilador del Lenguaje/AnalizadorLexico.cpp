@@ -5,6 +5,8 @@
 #include<string.h>
 #include<fstream>
 
+//preguntarle si le ponemos lo de los limites y lo de girarRuedas izquierda y derecha
+
 using namespace std;
 bool creacion(string leido);
 bool asignacion(string leido);
@@ -23,7 +25,7 @@ string lectura(){
 	string archivo="";
 	
 	cout<<endl;
-	cout<<"Digite el nombre o la ubicacion del archivo o fichero: ";
+	cout<<"Digite el nombre o la ubicacion del archivo o fichero (debe llevar .txt al final): ";
 	getline(cin,nombreArchivo);
 	
 	archivo_texto.open(nombreArchivo.c_str(),ios::in); //Abrimos el archivo en modo lectura
@@ -227,26 +229,33 @@ bool desplazamientos(string leido){
 						}
 					}
 				}
-				anterior=separada;
-				p=q;
-			 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
-			 	
-				if(separada!="finAvanzar"){
-					return false;
-				}else{
+				
+				float valor= atoi(separada.c_str());
+				if(valor>0){
 					anterior=separada;
-					
-					for(int i=0;i<3;i++){
-						p=q;
-				 		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
-					}
+					p=q;
+				 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+				 	
+					if(separada!="finAvanzar"){
+						return false;
+					}else{
+						anterior=separada;
+						
+						for(int i=0;i<3;i++){
+							p=q;
+					 		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+						}
+					 	if(anterior!=separada){
+					 		return false;
+						 }
+					}			 							
 				 	if(anterior!=separada){
 				 		return false;
-					 }
-				}			 							
-			 	if(anterior!=separada){
-			 		return false;
+					}
+				}else{
+					return false;
 				}
+				
 			}
 		 	break;
 		 }else if(separada=="retroceder"){
@@ -266,30 +275,131 @@ bool desplazamientos(string leido){
 						}
 					}
 				}
-				anterior=separada;
-				p=q;
-			 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
-			 	
-				if(separada!="finRetroceder"){
-					return false;
-				}else{
+				float valor= atoi(separada.c_str());
+				if(valor>0){
 					anterior=separada;
-					
-					for(int i=0;i<3;i++){
-						p=q;
-				 		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+					p=q;
+				 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+				 	
+					if(separada!="finRetroceder"){
+						return false;
+					}else{
+						anterior=separada;
+						
+						for(int i=0;i<3;i++){
+							p=q;
+					 		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+						}
+					 	if(anterior!=separada){
+					 		return false;
+						 }
+						
 					}
+				 	
 				 	if(anterior!=separada){
 				 		return false;
-					 }
-					
-				}
-			 	
-			 	if(anterior!=separada){
-			 		return false;
+					}
+				}else{
+					return false;
 				}
 			}
 		 	break;
+		 }else if(separada=="girarRuedas"){
+		 	p=q;
+		 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		 	if(separada=="derecha"){
+				p=q;
+		 		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		 		
+		 		if(separada[0]=='+' || separada[0]=='-'|| (separada[0]>='0' && separada[0]<='9')){
+				//ciclo para recorrer el valor ingresado
+					for(int k=0;k<separada.length();k++){
+						//si es un signo al comienzo, solo se concatena a temporal que es una variable string para ayudarnos a saber como lee
+						if(separada[k]=='+' || separada[k]=='-'){
+							signo=true;
+						}else{
+							if(separada[k]=='.' && !punto){
+								punto=true;
+							}else if(separada[k]=='.' && punto){
+								return false;
+							}
+						}
+					}
+					float valor= atoi(separada.c_str());
+					if(valor>0 && valor <=70){
+						p=q;
+					 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+						if(separada=="finGirarRuedas"){
+							p=q;
+							separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+							if(separada=="girarRuedas"){
+								return true;
+							}else if(separada==""){
+								return true;
+							}else{
+								return false;
+							}
+						}else{
+							if(separada==""){
+								return true;
+							}else{
+								return false;
+							}
+						}
+					 	
+					}else{
+						return false;
+					}
+				}else{
+					return false;
+				}
+			}else if(separada=="izquierda"){
+				
+				p=q;
+		 		separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		 		
+		 		if(separada[0]=='+' || separada[0]=='-'|| (separada[0]>='0' && separada[0]<='9')){
+				//ciclo para recorrer el valor ingresado
+					for(int k=0;k<separada.length();k++){
+						//si es un signo al comienzo, solo se concatena a temporal que es una variable string para ayudarnos a saber como lee
+						if(separada[k]=='+' || separada[k]=='-'){
+							signo=true;
+						}else{
+							if(separada[k]=='.' && !punto){
+								punto=true;
+							}else if(separada[k]=='.' && punto){
+								return false;
+							}
+						}
+					}
+					float valor= atoi(separada.c_str());
+					if(valor>0 && valor <=70){
+						p=q;
+					 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+						if(separada=="finGirarRuedas"){
+							p=q;
+							separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+							if(separada=="girarRuedas"){
+								return true;
+							}else if(separada==""){
+								return true;
+							}else{
+								return false;
+							}
+						}else{
+							if(separada==""){
+								return true;
+							}else{
+								return false;
+							}
+						}
+					 	
+					}else{
+						return false;
+					}
+				}else{
+					return false;
+				}
 		 }else if(separada=="detener"){
 		 	anterior=separada;
 			p=q;
@@ -301,8 +411,9 @@ bool desplazamientos(string leido){
 		 }else{
 		 	return false;
 		 }
-	}	
+	}
 	return true;
+	}
 }
 bool condicion(string leido){
 	char separador= ' ';
@@ -532,6 +643,37 @@ bool iteracion(string leido){
 						return false;
 
 					}
+				}else if (separada=="girarRuedas"){
+					p=q;
+					separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+					
+					if(separada=="izquierda" || separada=="derecha"){
+						p=q;
+						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+						
+						if(encontrar_interacion(separada)){
+						p=q;
+						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+						
+						if(condicion(separada)){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="finHacer"){
+								return true;
+							}else{
+								return false;
+							}
+						}else{
+							return false;
+						}
+					}else{
+						return false;
+
+					}
+					}else{
+						return false;
+					}
+					
 				}else if (separada=="detener"){
 					p=q;
 					separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
@@ -624,7 +766,7 @@ bool iteracion(string leido){
 						return false;
 
 					}
-				}else if (separada=="alturaCamara"){
+				}else if (separada=="inclinarCamara"){
 					p=q;
 					separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 					
@@ -684,6 +826,22 @@ bool iteracion(string leido){
 							}else{
 								return false;
 							}
+						}else if(separada=="girarRuedas"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							
+							if(separada=="izquierda" || separada=="derecha"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								
+								if(separada=="finMientras"){
+									return true;
+								}else{
+									return false;
+								}
+							}else{
+								return false;
+							}
 						}else if(separada=="girarCamara"){
 							p=q;
 							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
@@ -692,7 +850,7 @@ bool iteracion(string leido){
 							}else{
 								return false;
 							}
-						}else if(separada=="alturaCamara"){
+						}else if(separada=="inclinarCamara"){
 							p=q;
 							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 							if(separada=="finMientras"){
@@ -761,6 +919,22 @@ bool condicional(string leido){
 								}else{
 									return false;
 								}
+							}else if (separada=="girarRuedas"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								
+								if(separada=="izquierda" || separada=="derecha"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									if(encontrar_condicional(separada)){
+										return true;
+									}else{
+										
+										return false;
+									}
+								}else{
+									return false;
+								}
 							}else if (separada=="detenerse"){
 								p=q;
 								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
@@ -786,6 +960,22 @@ bool condicional(string leido){
 									return false;
 								}
 							}else if(separada=="girarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="inclinarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="alturaCamara"){
 								p=q;
 								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 								if(encontrar_condicional(separada)){
@@ -837,6 +1027,19 @@ bool condicional(string leido){
 								}else{
 									return false;
 								}
+							}else if (separada=="girarRuedas"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								
+								if(separada=="izquierda" || separada=="derecha"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									if(encontrar_condicional(separada)){
+										return true;
+									}else{
+										return false;
+									}
+								}
 							}else if(separada=="enviarFoto"){
 								p=q;
 								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
@@ -861,6 +1064,22 @@ bool condicional(string leido){
 								}else{
 									return false;
 								}
+							}else if(separada=="inclinarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="alturaCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
 							}else{
 								return false;
 							}
@@ -869,6 +1088,110 @@ bool condicional(string leido){
 							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 							if(separada=="si"){
 								return true;
+							}else{
+								return false;
+							}
+						}else{
+							return false;
+						}
+					}else if (separada=="girarRuedas"){
+						p=q;
+						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+						
+						if(separada=="izquierda" || separada=="derecha"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="entoncesSino"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(separada=="avanzar"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									if(encontrar_condicional(separada)){
+										return true;
+									}else{
+										return false;
+									}
+								}else if (separada=="retroceder"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									if(encontrar_condicional(separada)){
+										return true;
+									}else{
+										return false;
+									}
+								}else if (separada=="detenerse"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									if(encontrar_condicional(separada)){
+										return true;
+									}else{
+										return false;
+									}
+								}else if (separada=="girarRuedas"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									
+									if(separada=="izquierda" || separada=="derecha"){
+										p=q;
+										separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+										if(encontrar_condicional(separada)){
+											return true;
+										}else{
+											return false;
+										}
+									}
+								}else if(separada=="enviarFoto"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									if(encontrar_condicional(separada)){
+										return true;
+									}else{
+										return false;
+									}
+								}else if(separada=="tomarFoto"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									if(encontrar_condicional(separada)){
+										return true;
+									}else{
+										return false;
+									}
+								}else if(separada=="girarCamara"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									if(encontrar_condicional(separada)){
+										return true;
+									}else{
+										return false;
+									}
+								}else if(separada=="inclinarCamara"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									if(encontrar_condicional(separada)){
+										return true;
+									}else{
+										return false;
+									}
+								}else if(separada=="alturaCamara"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									if(encontrar_condicional(separada)){
+										return true;
+									}else{
+										return false;
+									}
+								}else{
+									return false;
+								}
+							}else if(separada=="finSi"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(separada=="si"){
+									return true;
+								}else{
+									return false;
+								}
 							}else{
 								return false;
 							}
@@ -905,6 +1228,19 @@ bool condicional(string leido){
 								}else{
 									return false;
 								}
+							}else if (separada=="girarRuedas"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									
+									if(separada=="izquierda" || separada=="derecha"){
+										p=q;
+										separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+										if(encontrar_condicional(separada)){
+											return true;
+										}else{
+											return false;
+										}
+									}
 							}else if(separada=="enviarFoto"){
 								p=q;
 								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
@@ -922,6 +1258,22 @@ bool condicional(string leido){
 									return false;
 								}
 							}else if(separada=="girarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="alturaCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="inclinarCamara"){
 								p=q;
 								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 								if(encontrar_condicional(separada)){
@@ -973,6 +1325,19 @@ bool condicional(string leido){
 								}else{
 									return false;
 								}
+							}else if (separada=="girarRuedas"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									
+									if(separada=="izquierda" || separada=="derecha"){
+										p=q;
+										separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+										if(encontrar_condicional(separada)){
+											return true;
+										}else{
+											return false;
+										}
+									}
 							}else if(separada=="enviarFoto"){
 								p=q;
 								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
@@ -990,6 +1355,22 @@ bool condicional(string leido){
 									return false;
 								}
 							}else if(separada=="girarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="alturaCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="inclinarCamara"){
 								p=q;
 								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 								if(encontrar_condicional(separada)){
@@ -1041,6 +1422,19 @@ bool condicional(string leido){
 								}else{
 									return false;
 								}
+							}else if (separada=="girarRuedas"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									
+									if(separada=="izquierda" || separada=="derecha"){
+										p=q;
+										separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+										if(encontrar_condicional(separada)){
+											return true;
+										}else{
+											return false;
+										}
+									}
 							}else if(separada=="enviarFoto"){
 								p=q;
 								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
@@ -1058,6 +1452,216 @@ bool condicional(string leido){
 									return false;
 								}
 							}else if(separada=="girarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="inclinarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="alturaCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else{
+								return false;
+							}
+						}else if(separada=="finSi"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="si"){
+								return true;
+							}else{
+								return false;
+							}
+						}else{
+							return false;
+						}
+					}else if(separada=="alturaCamara"){
+						p=q;
+						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+						if(separada=="entoncesSino"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="avanzar"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if (separada=="retroceder"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if (separada=="detenerse"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if (separada=="girarRuedas"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									
+									if(separada=="izquierda" || separada=="derecha"){
+										p=q;
+										separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+										if(encontrar_condicional(separada)){
+											return true;
+										}else{
+											return false;
+										}
+									}
+							}else if(separada=="enviarFoto"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="tomarFoto"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="girarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="alturaCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="inclinarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else{
+								return false;
+							}
+						}else if(separada=="finSi"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="si"){
+								return true;
+							}else{
+								return false;
+							}
+						}else{
+							return false;
+						}
+					}else if(separada=="inclinarCamara"){
+						p=q;
+						separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+						if(separada=="entoncesSino"){
+							p=q;
+							separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+							if(separada=="avanzar"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if (separada=="retroceder"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if (separada=="detenerse"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if (separada=="girarRuedas"){
+									p=q;
+									separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+									
+									if(separada=="izquierda" || separada=="derecha"){
+										p=q;
+										separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+										if(encontrar_condicional(separada)){
+											return true;
+										}else{
+											return false;
+										}
+									}
+							}else if(separada=="enviarFoto"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="tomarFoto"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="girarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="inclinarCamara"){
+								p=q;
+								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
+								if(encontrar_condicional(separada)){
+									return true;
+								}else{
+									return false;
+								}
+							}else if(separada=="alturaCamara"){
 								p=q;
 								separada=leido.substr(p+(p!=0),(q=leido.find(separador, p+1))-p-(p!=0));
 								if(encontrar_condicional(separada)){
@@ -1131,17 +1735,20 @@ bool camara(string leido){
 						}
 					}
 				}
-				
-				p=q;
-			 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
-			 	if(separada!="finGirarCamara"){
-			 		return false;
+				float valor= atoi(separada.c_str());
+				if(valor>=0 && valor<=360){
+					p=q;
+				 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+				 	if(separada!="finGirarCamara"){
+				 		return false;
+					}
+				}else{
+					return false;
 				}
-				
 			}else{
 				return false;
 			}
-		}else if(separada=="alturaCamara"){ //palabra clave para indicar una cantidad n de centimentros con los que se desplazara la camara 
+		}else if(separada=="inclinarCamara"){ //palabra clave para indicar una cantidad n de centimentros con los que se desplazara la camara 
 		 	p=q;
 		 	
 		 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
@@ -1161,12 +1768,50 @@ bool camara(string leido){
 						}
 					}
 				}
-			 	p=q;
-			 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
-			 	if(separada!="finAlturaCamara"){
-			 		return false;
+				
+				float valor= atoi(separada.c_str());
+				if(valor>=0 && valor<=100){
+					p=q;
+				 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+				 	if(separada!="finInclinarCamara"){
+				 		return false;
+					}
+				}else{
+					return false;
+				}
+			}
+		 	break;
+		 }else if(separada=="alturaCamara"){ //palabra clave para indicar una cantidad n de centimentros con los que se desplazara la camara 
+		 	p=q;
+		 	
+		 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+		 	
+			if(separada[0]=='+' || separada[0]=='-'|| (separada[0]>='0' && separada[0]<='9')){
+				//ciclo para recorrer el valor ingresado
+				for(int k=0;k<separada.length();k++){
+					//si es un signo al comienzo, solo se concatena a temporal que es una variable string para ayudarnos a saber como lee					
+					if(separada[k]=='+' || separada[k]=='-'){
+						signo=true;
+					}else{
+						if(separada[k]!='.'){
+						}else if(separada[k]=='.' && !punto){
+							punto=true;
+						}else if(separada[k]=='.' && punto){
+							return false;
+						}
+					}
 				}
 				
+				float valor= atoi(separada.c_str());
+				if(valor>=0 && valor<=100){
+					p=q;
+				 	separada=convertido.substr(p+(p!=0),(q=convertido.find(separador, p+1))-p-(p!=0));
+				 	if(separada!="finAlturaCamara"){
+				 		return false;
+					}
+				}else{
+					return false;
+				}
 			}
 		 	break;
 		 }else if(separada=="tomarFoto()"){
@@ -1254,6 +1899,7 @@ int main(){
 	int contCamara=0;
 	int contAsignacion=0;
 	int errores=0;
+	int contLinea=0;
 	string leido;
 	string linea;
 	string separada;
@@ -1261,104 +1907,189 @@ int main(){
 	char separadorLineas='\n';
 	char separadorEspacios=' ';
 	
+	//escritura de la tabla de simbolos
+	ofstream tablaDeSimbolos;
+	string archivoTablaDeSimbolos;
+	cout<<"Digite el nombre del archivo donde se guardara la tabla de simbolos (debe llevar .txt al final): ";
+	getline(cin,archivoTablaDeSimbolos);
+	cout<<endl;
+	
+	tablaDeSimbolos.open(archivoTablaDeSimbolos.c_str(),ios::out);
+	
+	if(tablaDeSimbolos.fail()){
+		cout<<"La tabla de Simbolos no se abrio";
+		exit(1);
+	}
+	
+	tablaDeSimbolos<<"*****************************************"<<endl;
+	tablaDeSimbolos<<"*	   Tabla de simbolos		*"<<endl;
+	tablaDeSimbolos<<"*****************************************"<<endl;
+	tablaDeSimbolos<<"*	  Tipo		*     Linea	*"<<endl;
+	tablaDeSimbolos<<"*****************************************"<<endl;
+	
+	
 	for(size_t l=0, r=0; l!=leido.npos; l=r){
+		contLinea=contLinea+1;
 		linea=leido.substr(l+(l!=0),(r=leido.find(separadorLineas, l+1))-l-(l!=0));
 		for(size_t p=0, q=0; p!=leido.npos; p=q){
+			separadorEspacios=' ';
 			separada=linea.substr(p+(p!=0),(q=linea.find(separadorEspacios, p+1))-p-(p!=0));
 			if(separada=="mientras"){
 				if(iteracion(linea)){
 					contMientras=contMientras+1;
+					tablaDeSimbolos<<"*\tmientras\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					break;
 				}else{
+					tablaDeSimbolos<<"*\terror\t\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					errores=errores+1;
 					break;
 				}
 			}else if(separada=="si"){
 				if(condicional(linea)){
+					tablaDeSimbolos<<"*\tsi\t\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					contSi=contSi+1;
 					break;
 				}else{
+					tablaDeSimbolos<<"*\terror\t\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					errores=errores+1;
 					break;
 				}
 			}else if(separada=="hacer"){
 				if(iteracion(linea)){
+					tablaDeSimbolos<<"*\thacer\t\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					contHacer=contHacer+1;
 					break;
 				}else{
+					tablaDeSimbolos<<"*\terror\t\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					errores=errores+1;
 					break;
 				}
 			}else if(separada=="int" || separada=="bool" || separada=="string" || separada=="float"){
 				if(creacion(linea)){
+					tablaDeSimbolos<<"*\t";
+					tablaDeSimbolos<<separada;
+					tablaDeSimbolos<<"\t\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					contCreacion=contCreacion+1;
 					break;
 				}else{
+					tablaDeSimbolos<<"*\terror\t\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					errores=errores+1;
 					break;
 				}
-			}else if(separada=="avanzar" || separada=="retroceder" || separada=="detenerse"){
+			}else if(separada=="avanzar" || separada=="retroceder" || separada=="girarRuedas" ||separada=="detenerse" ){
 				if(desplazamientos(linea)){
+					if(separada=="avanzar"){
+						tablaDeSimbolos<<"*\t";
+						tablaDeSimbolos<<separada;
+						tablaDeSimbolos<<"\t\t*\t";
+						tablaDeSimbolos<<contLinea;
+						tablaDeSimbolos<<"\t*"<<endl;
+					}else{
+						tablaDeSimbolos<<"*\t";
+						tablaDeSimbolos<<separada;
+						tablaDeSimbolos<<"\t*\t";
+						tablaDeSimbolos<<contLinea;
+						tablaDeSimbolos<<"\t*"<<endl;
+					}
+					
 					contDesplazamientos=contDesplazamientos+1;
 					break;
 				}else{
+					tablaDeSimbolos<<"*\terror\t\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					errores=errores+1;
 					break;
 				}
-			}else if(separada=="girarCamara" || separada=="alturaCamara" || separada=="tomarFoto()" || separada=="enviarFoto()"){
+			}else if(separada=="girarCamara" || separada=="inclinarCamara" || separada=="alturaCamara" || separada=="tomarFoto()" || separada=="enviarFoto()"){
 				if(camara(linea)){
+					tablaDeSimbolos<<"*\t";
+					tablaDeSimbolos<<separada;
+					tablaDeSimbolos<<"\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					contCamara=contCamara+1;
 					break;
 				}else{
+					tablaDeSimbolos<<"*\terror\t\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					errores=errores+1;
 					break;
 				}
 			}else if((separada[0]>='a' && separada[0]>='z') || (separada[0]>='A' && separada[0]>='Z')){
 				if(asignacion(linea)){
+					separadorEspacios='=';
+					separada=linea.substr(p+(p!=0),(q=linea.find(separadorEspacios, p+1))-p-(p!=0));
+					
+					tablaDeSimbolos<<"*   AsignacionVariable\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					contAsignacion=contAsignacion+1;
 					break;
 				}else{
+					tablaDeSimbolos<<"*\terror\t\t*\t";
+					tablaDeSimbolos<<contLinea;
+					tablaDeSimbolos<<"\t*"<<endl;
 					errores=errores+1;
 					break;
 				}
 			}
 		}
 	}
+	tablaDeSimbolos<<"*****************************************"<<endl;
 	
-	//escritura del archivo
-	ofstream archivo;
-	archivo.open("resultados.txt",ios::out);
-	if(archivo.fail()){
-		cout<<"El archivo no se abrio";
+	//escritura de los resultados
+	ofstream resultados;
+	string archivoResultados;
+	cout<<"Digite el nombre del archivo donde se guardaran los resultados (debe llevar .txt al final): ";
+	getline(cin,archivoResultados);
+	cout<<endl;
+	
+	resultados.open(archivoResultados.c_str(),ios::out);
+	if(resultados.fail()){
+		cout<<"Los resultados no se abrieron";
 		exit(1);
 	}
-	archivo<<"Resultados"<<endl;
 	
-	archivo<<"Contador de Mientras: ";
-	archivo<<contMientras<<endl;
-	archivo<<"Contador de Mientras: ";	
-	archivo<<contMientras<<endl;
-	archivo<<"Contador de Si: ";  
-	archivo<<contSi<<endl;
-	archivo<<"Contador de Hacer: ";               
-	archivo<<contHacer<<endl;
-	archivo<<"Contador de Creacion de variables: ";
-	archivo<<contCreacion<<endl;
-	archivo<<"Contador de Desplazamientos: ";
-	archivo<<contDesplazamientos<<endl;
-	archivo<<"Contador de Camara: ";
-	archivo<<contCamara<<endl;
-	archivo<<"Contador de Asignacion: ";
-	archivo<<contAsignacion<<endl;
-	archivo<<"Contador de Errores encontrados: ";
-	archivo<<errores<<endl;
+	resultados<<"		Resultados		"<<endl<<endl;
+	resultados<<"Contador de Mientras: ";	
+	resultados<<contMientras<<endl;
+	resultados<<"Contador de Si: ";  
+	resultados<<contSi<<endl;
+	resultados<<"Contador de Hacer: ";               
+	resultados<<contHacer<<endl;
+	resultados<<"Contador de Creacion de variables: ";
+	resultados<<contCreacion<<endl;
+	resultados<<"Contador de Desplazamientos: ";
+	resultados<<contDesplazamientos<<endl;
+	resultados<<"Contador de Camara: ";
+	resultados<<contCamara<<endl;
+	resultados<<"Contador de Asignacion: ";
+	resultados<<contAsignacion<<endl;
+	resultados<<"Contador de Errores encontrados: ";
+	resultados<<errores<<endl;
 	
-	archivo.close();
+	resultados.close();
+	tablaDeSimbolos.close();
 	
-	cout<<"En caso de no haber ocurrido un error fatal, puede leer los resultados en un archivo de texto llamado 'Resultados.txt' en la carpeta de origen"<<endl<<endl;
-	system("pause");
-	
-	
+	cout<<"En caso de no haber ocurrido un error fatal, puede leer la tabla de simbolos en un archivo de texto llamado "+archivoTablaDeSimbolos+" y tambien los resultados de la lectura en el archivo llamado "+archivoResultados+" en la carpeta de origen"<<endl<<endl;
 	return 0;
 }
 		
